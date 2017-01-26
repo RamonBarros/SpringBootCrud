@@ -28,26 +28,27 @@ public class EmployeeController {
     }
     
     @RequestMapping(value = "employee/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Employee> showProduct(@PathVariable Long id) {
+    public ResponseEntity<Employee> showEmployee(@PathVariable Long id) {
         
+        //extends HttpEntity and adds additional information of HTTP method and uri to the request.
         return new ResponseEntity<Employee>(employeeService.getEmployeeById(id), HttpStatus.FOUND);
     }
     
     @RequestMapping("employee/new")
-    public String newProduct(Model model) {
+    public String newEmployee(Model model) {
         model.addAttribute("product", new Employee());
         return "employeeform";
     }
     
     @RequestMapping(value = "employee", method = RequestMethod.POST,  consumes = "application/json")
-    public String saveProduct(@RequestBody  Employee employee) {
+    public String saveEmployee(@RequestBody  Employee employee) {
         
         employeeService.saveEmployee(employee);
         return "redirect:/employee/" + employee.getIdEmployee();
     }
     
     @RequestMapping(value = "employee/update", method = RequestMethod.PUT,  consumes = "application/json")
-    public String updateProduct(@RequestBody  Employee employee) {
+    public String updateEmployee(@RequestBody  Employee employee) {
 
         Employee newEmployee = new Employee();
         newEmployee = employeeService.getEmployeeById(employee.getIdEmployee());
@@ -68,7 +69,7 @@ public class EmployeeController {
     }
     
     @RequestMapping("employee/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return "redirect:/employees";
     }
